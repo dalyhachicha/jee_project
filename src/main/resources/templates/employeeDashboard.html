@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Dashboard</title>
+</head>
+<body>
+    <h1>Employee Dashboard</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Date Debut</th>
+                <th>Date Fin</th>
+                <th>Date Repture</th>
+                <th>Etat</th>
+                <th>Valide</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="conge : ${conges.content}">
+                <td th:text="${conge.id}"></td>
+                <td th:text="${conge.description}"></td>
+                <td th:text="${conge.dateDebut}"></td>
+                <td th:text="${conge.dateFin}"></td>
+                <td th:text="${conge.dateRepture}"></td>
+                <td th:text="${conge.etat}"></td>
+                <td th:text="${conge.valide}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Pagination
+    <div th:if="${conges.totalPages > 1}">
+        <ul class="pagination">
+            <li th:each="i : ${#numbers.sequence(0, conges.totalPages - 1)}" th:class="${i == pageCourant ? 'active' : ''}">
+                <a th:href="@{'/index?id=' + ${id} + '&page=' + ${i} + '&dateRechercher=' + ${motCle} + '&etatRechercher=' + ${motCle}}">
+                    <span th:text="${i} + 1"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    -->
+</body>
+</html>

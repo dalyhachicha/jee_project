@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="path/to/your/css/file.css">
+</head>
+<body>
+    <h1>Employee Dashboard</h1>
+
+    <form action="#" th:action="@{/admin/index}" method="get">
+        <div>
+            <label for="nom">Name:</label>
+            <input type="text" id="nom" name="nom" th:value="${nom}">
+        </div>
+        <div>
+            <label for="dateRechercher">Date of Hiring:</label>
+            <input type="date" id="dateRechercher" name="dateRechercher" th:value="${dateRechercher}">
+        </div>
+        <div>
+            <label for="etatRechercher">State:</label>
+            <input type="text" id="etatRechercher" name="etatRechercher" th:value="${etatRechercher}">
+        </div>
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Date of Hiring</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="employe : ${employes}">
+                <td th:text="${employe.id}"></td>
+                <td th:text="${employe.email}"></td>
+                <td th:text="${employe.nom}"></td>
+                <td th:text="${employe.prenom}"></td>
+                <td th:text="${employe.dateEmbauchement}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+  <!--  <div>
+        <span th:text="'Page ' + ${pageCourant}"></span>
+        <div>
+            <a th:if="${pageCourant > 0}" th:href="@{/index(page=${pageCourant - 1}, nom=${nom}, dateRechercher=${dateRechercher}, etatRechercher=${etatRechercher})}">Previous</a>
+            <a th:if="${employes.hasNext()}" th:href="@{/index(page=${pageCourant + 1}, nom=${nom}, dateRechercher=${dateRechercher}, etatRechercher=${etatRechercher})}">Next</a>
+        </div>
+    </div> --->
+</body>
+</html>
