@@ -14,12 +14,13 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 @Entity
 public class Conge {
+	
 	@Override
-	public String toString() {
-		return "Conge [id=" + id + ", description=" + description + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin
-				+ ", dateRepture=" + dateRepture + ", etat=" + etat + ", valide=" + valide + ", employe=" + employe
-				+ "]";
-	}
+    public String toString() {
+        return "Conge [id=" + id + ", description=" + description + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin
+                + ", dateRepture=" + dateRepture + ", etat=" + (etat != null ? etat.toString() : "null") + ", employe=" + employe + "]";
+    }
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -31,18 +32,10 @@ public class Conge {
 	private LocalDate dateFin;
 	@Temporal(TemporalType.DATE)
 	private LocalDate dateRepture;
-	private String etat;
-	private String valide ;
-	public String getValide() {
-		return valide;
-	}
-
-	public void setValide(String valide) {
-		this.valide = valide;
-	}
+	private Etat etat;
 	@ManyToOne
 	private Employe employe;
-	public Conge(String description, LocalDate dateDebut, LocalDate dateFin, LocalDate dateRepture, String etat) {
+	public Conge(String description, LocalDate dateDebut, LocalDate dateFin, LocalDate dateRepture, Etat etat) {
 		super();
 		this.description = description;
 		this.dateDebut = dateDebut;
@@ -51,7 +44,7 @@ public class Conge {
 		this.etat = etat;
 	}
 	
-	public Conge(String description, LocalDate dateDebut, LocalDate dateFin, LocalDate dateRepture, String etat, Employe employe) {
+	public Conge(String description, LocalDate dateDebut, LocalDate dateFin, LocalDate dateRepture, Etat etat, Employe employe) {
 		super();
 		this.description = description;
 		this.dateDebut = dateDebut;
@@ -66,11 +59,11 @@ public class Conge {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employe getEmployeconge() {
+	public Employe getEmploye() {
 		return employe;
 	}
 
-	public void setEmployeconge(Employe employeconge) {
+	public void setEmploye(Employe employeconge) {
 		this.employe = employeconge;
 	}
 
@@ -104,10 +97,11 @@ public class Conge {
 	public void setDateRepture(LocalDate dateRepture) {
 		this.dateRepture = dateRepture;
 	}
-	public String getEtat() {
+	public Etat getEtat() {
 		return etat;
 	}
-	public void setEtat(String etat) {
+
+	public void setEtat(Etat etat) {
 		this.etat = etat;
 	}
 

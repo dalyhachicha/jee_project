@@ -14,7 +14,7 @@ import spring.pfa.model.Employe;
 
 public interface EmployeRepository extends JpaRepository<Employe,Long> {
 	Employe findByEmail(String email);
-	Page<Employe> findAll(Pageable pageable);
+	List<Employe> findAll();
 
 	@Query("SELECT e FROM Employe e WHERE e.nom LIKE %:nom%")
 	Page<Employe> findByEmployeOrDateOrEtat(@Param("nom") String nom, Pageable pageable);

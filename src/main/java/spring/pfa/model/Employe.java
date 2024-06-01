@@ -1,7 +1,7 @@
 package spring.pfa.model;
 
 import java.time.LocalDate;
-
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -17,12 +17,33 @@ public class Employe extends Utilisateur {
 	@OneToMany(mappedBy = "employe")
 	private Collection<Conge> conge = new ArrayList<Conge>();
 
+    private static final int TOTAL_LEAVE_DAYS_PER_YEAR = 30;
+
+    public int getCongeRestant() {
+        int totalLeaveDaysThisYear = 0;
+
+        int currentYear = LocalDate.now().getYear();
+
+        for (Conge c : conge) {
+            LocalDate startDate = c.getDateDebut();
+            LocalDate endDate = c.getDateFin();
+
+            if (startDate.getYear() == currentYear || endDate.getYear() == currentYear) {
+                long daysBetween = ChronoUnit.DAYS.between(startDate, endDate.plusDays(1));
+                totalLeaveDaysThisYear += daysBetween;
+            }
+        }
+
+        int congeRestant = TOTAL_LEAVE_DAYS_PER_YEAR - totalLeaveDaysThisYear;
+
+        return congeRestant;
+    }
 
 
 
 	@Override
 	public String toString() {
-		return "Employe [conge=" + conge + ", id=" + id + ", email=" + email + ", nom=" + nom + ", prenom=" + prenom
+		return "Employe [id=" + id + ", email=" + email + ", nom=" + nom + ", prenom=" + prenom
 				+ ", dateEmbauchement=" + dateEmbauchement + ", password=" + password + "]";
 	}
 
